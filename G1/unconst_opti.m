@@ -34,7 +34,7 @@ xoptconst = fmincon(rosenbrock_caller, x0, Ac, bc);
 
 %% plot 3D graph of rosenbrock function cost  
 
-figure(1);
+fig1 = figure(1);
 s = surf(xx1, xx2, ff);
 set(s,'LineStyle','none')
 
@@ -49,11 +49,12 @@ set(gg,'FontSize',14);
 
 gg=zlabel('f(x)');
 set(gg,'FontSize',14);
+saveas(fig1, 'Rosenbrock 3D plot', 'jpg')
 
 %% Plot the countour line of the cost function
 % and the minimuns
 
-figure(2); 
+fig2 = figure(2); 
 hold on;
 
 axis([x1min x1max x2min x2max]); 
@@ -70,7 +71,7 @@ title("Rosenbrock countour lines");
 xlabel("x1"); 
 ylabel("y1");
 
-
+saveas(fig2, 'rosenbrock contour lines', 'jpg')
 
 
 
