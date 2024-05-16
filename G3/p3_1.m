@@ -22,10 +22,7 @@ tclab;
 %%
 led(1);
 % Experiment parameters
-T = 8000; % experiment duration [s]
-Ts = 2; % sampling period [s]
-N = T/Ts; % number of samples to collect
-change_counter =  1000 / Ts;
+1000
 
 dutys_ = [25 40 20 30 26 33 37 22];
 iter = 1;
