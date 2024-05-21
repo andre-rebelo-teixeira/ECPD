@@ -1,4 +1,4 @@
-% Define the system matrices
+f% Define the system matrices
 A = 1.2;    % System matrix A
 B = 1;      % System matrix B
 
@@ -9,5 +9,4 @@ R = 1;      % Control weighting matrix
 % Compute the optimal LQ state feedback gain
 [K,S,lambda] = dlqr(A, B, Q, R);
 
-disp('Optimal LQ state feedback gain:');
-disp(K);
+fprintf('optimal LQ state feedback gain %f \n', K);
