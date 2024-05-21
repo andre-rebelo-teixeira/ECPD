@@ -23,7 +23,7 @@ heater_choosen = 1;
 number_of_changes_in_duty = 10; 
 
 % this makessure we never turn on full power so save the hardware
-max_duty = 70;
+max_duty = 60;
 
 % create random array for the duty cycle values
 duty_cycle = randperm(max_duty, number_of_changes_in_duty) + 10
@@ -32,6 +32,7 @@ duty_cycle = randperm(max_duty, number_of_changes_in_duty) + 10
 times =  rand(1, number_of_changes_in_duty);
 times = round(times * (N + 1) / sum(times))
 
+%%
 
 pause(10);
 % auxiliar variables for data collection
