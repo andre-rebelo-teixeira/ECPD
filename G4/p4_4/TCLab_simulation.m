@@ -23,7 +23,7 @@ e_std = 0;
 % Build the functions for applying the control and reading the temperature,
 % mimicking the TCLab interface
 x_ss = [eye(n)-A; C]\[B*u_ss; y_ss];
-c1 = ((eye(n)-A)*x_ss - B*u_ss);
+c1 = ((eye(n)-A)*x_ss - B*u_ss) * 1.1;
 c2 = (y_ss - C*x_ss);
 h1 = @(x,u) A*x + B*u + Ke*e_std*randn + c1; % apply control
 T1C = @(x) C*x + e_std*randn + c2; % read temperature
