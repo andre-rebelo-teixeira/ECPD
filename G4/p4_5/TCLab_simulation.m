@@ -53,7 +53,7 @@ Du_bar = nan(1,N);
 Dx = nan(n,N+1);
 x(:,1) = Dx0 + x_ss;
 
-Dr = 2;
+Dr = 10;
 
 dx_hat = nan(n , N+1);
 du_hat = nan(1, n);
@@ -69,7 +69,7 @@ H = 50;
 R = 0.05;  % the smaller the value, the more it will want to have negative actuations
 
 
-MAX_TEMP = 50;
+MAX_TEMP = 60;
 % Simulate incremental model
 fprintf('Running simulation...');
 

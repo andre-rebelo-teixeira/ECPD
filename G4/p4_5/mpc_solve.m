@@ -4,13 +4,17 @@ function u0 = mpc_solve(x0, u_ss, Du_bar, Dr, H, R, A , B, C, MAX_TEMP, y_ss)
     M = compute_m(W, H, R); 
     PI_ = compute_PI_(A, C, H); 
 
+    Rs = [R * eye(H) zeros(H, H); zeros(H, H) 10 * eye(H)];
+    Ws = [W zeros(H, H)];
+    Ms = Ws' * Ws + Rs;
+
     % calculate both the values of F and f for the quadprog function
     F = 2 * M;
     f = 2 * x0' * PI_' * W;
 
     % actuation limits between 0 ->  100 %
-    lb = zeros(H, 1) - u_ss - Du_bar; 
-    ub = zeros(H, 1) + 100 - u_ss - Du_bar;
+    lb = [zeros(H, 1) - u_ss - Du_bar, zeros(H, 1)]; 
+    ub = [zeros(H, 1) + 100 - u_ss - Du_bar, inf(H,1)];
 
 
     % Safety constraint to have the temperature less or equal than 55º
@@ -18,11 +22,11 @@ function u0 = mpc_solve(x0, u_ss, Du_bar, Dr, H, R, A , B, C, MAX_TEMP, y_ss)
 
     G = eye(H);
     g = (MAX_TEMP - y_ss - Dr) * ones(H, 1);
-    A_ = G * W;
+    A_ = [G * W, -eye(H)];
     B_ = g - G * PI_ * x0;
     
     options = optimoptions(@quadprog, 'MaxIterations', 2000, 'Display', 'off');
-    [U, ~, exitflag, ~, ~] = quadprog(2*M,  2 * x0' * PI_' * W, A_, B_, [], [],  lb, ub, x0, options);
+    [U, ~, exitflag, ~, ~] = quadprog(2*Ms,  (2 * x0' * PI_' * Ws), A_, B_, [], [],  lb, ub, x0, options);
    
     if exitflag ~= 1
         fprintf("Something went wrong, the exit  flag was this %d\n", exitflag); 
